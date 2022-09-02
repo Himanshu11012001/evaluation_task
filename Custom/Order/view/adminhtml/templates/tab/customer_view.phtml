@@ -1,0 +1,49 @@
+<?php
+/**
+ * @var $block \Rbj\CustomerTab\Block\Adminhtml\CustomerEdit\Tab\View
+ */
+?>
+
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('') ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <tbody>
+        <?php echo $block->getChildHtml(); ?>
+        <tr>
+            <th><?php /* @escapeNotVerified */
+                echo __('Customer Name:') ?></th>
+            <td><?php $id= $block->getCustomerId();
+
+          
+         
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerObj = $objectManager->create('Magento\Customer\Model\Customer')
+            ->load($id);
+$customerFirstName = $customerObj->getFirstname();
+echo $customerFirstName;
+
+     
+            
+
+            ?></td>
+
+        </tr>
+        <tr>
+            <th><?php /* @escapeNotVerified */
+                echo __('Last Ordered Date:') ?></th>
+            <td><?php $id= $block->getCustomerId();
+
+          
+
+$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+$order = $objectManager->get('Magento\Sales\Model\Order')->getCollection()->addFieldToFilter('customer_id',$id)->setOrder('created_at','DESC')->getFirstItem();
+echo '<pre>'; print_r($order->getCreatedAt());       
+
+?></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
